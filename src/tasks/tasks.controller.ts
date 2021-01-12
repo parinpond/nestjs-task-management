@@ -5,12 +5,16 @@ import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 import { TaskStatus } from './task-status.eum';
 import { Task } from './task.entity';
 import { TasksService } from './tasks.service';
-
+import { Logger} from '@nestjs/common';
 @Controller('tasks')
 export class TasksController {
+    private logger = new Logger('TasksController');
     constructor(private tasksService:TasksService){}
     @Get()
-    getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Promise<Task[]> {
+    getTasks(
+        @Query(ValidationPipe) 
+        filterDto: GetTasksFilterDto): Promise<Task[]> {
+        this.logger.verbose(`Filter: ${JSON.stringify(filterDto)}`);
         return this.tasksService.getTasks(filterDto);
     }
     @Get('/:id')
