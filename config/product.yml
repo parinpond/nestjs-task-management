@@ -1,2 +1,4 @@
+sever:
+  origin: 'Name domain AWS'
 db:
   synchronize: false
